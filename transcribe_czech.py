@@ -1,5 +1,8 @@
+#AUTOMATIC GRAPHEME-TO-PHONEME (G2P) TRANSCRIPTION: CZECH
+#Written by Philip Georgis (2021)
 
-
+#Mapping of Czech orthographic characters to IPA symbols
+#Any characters not included here have identical IPA representation
 czech_ipa = {'á':'aː',
              'e':'ɛ',
              'é':'ɛː',
@@ -32,9 +35,10 @@ cz_digraphs = {'au':'au̯',
                'nk':'ŋk',
                'ng':'ŋɡ'}
 
+#Characters which undergo palatalization before <i>, <í>, <ě>
 cz_palatal_dict = {'d':'ɟ',
                    't':'c',
-                   'n':'ɲ'} #these are patalized before i/í/ě
+                   'n':'ɲ'} 
 
 cz_obstruents = ['b', 'c', 'd', 'f', 'ɡ', 'k', 'p', 's', 't', 'v', 'x', 'z',
                  'ɟ', 'ɦ', 'ʃ', 'ʒ', 'ʦ', 'ʧ', 'ř', 'ʣ', 'ʤ']
@@ -59,7 +63,8 @@ cz_voiceless = list(cz_voicing_dict.keys())
 
 cz_vowels = ['a', 'i', 'ɛ', 'ɪ', 'o', 'u']
 
-ending = [' ', '.', ',', ';', ':', '!', '?', '[', ']', '(', ')', "'", '"'] #others?
+#Characters (spaces, punctuation, etc.) which mark the end of a word
+ending = [' ', '.', ',', ';', ':', '!', '?', '[', ']', '(', ')', "'", '"']
 
 def cz_g2p(text):
     text = text.lower()
