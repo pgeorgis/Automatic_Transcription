@@ -7,7 +7,7 @@ e.g. Given a Polish orthographic input text:
 
 >> transcribe_pl(text, final_denasal=True)
 
-'t͡ʂɛɕʨ, naz̪ˈɨvam ɕɛ fʲˈilip. pʂɛpɾˈaʂam, ɲɛ mˈuvʲɛ dˈɔbʐɛ pɔ pˈɔls̪ku.'
+'t͡ʂɛɕʨ, naz̪ˈɨvam ɕɛ fʲˈilʲip. pʂɛpɾˈaʂam, ɲɛ mˈuvʲjɛ dˈɔbʐɛ pɔ pˈɔls̪ku.'
 
 The text can be of any length, for example using a paragraph from the Nāhuatl Wikipedia:
 
