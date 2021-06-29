@@ -32,7 +32,7 @@ cz_digraphs = {'au':'au̯',
                'eu':'ɛu̯',
                'ou':'ou̯',
                'ch':'X', #needs to be kept separate from <x> at first
-               'dz':'ʣ',
+               #'dz':'ʣ',
                'dž':'ʤ',
                'ng':'ŋɡ',
                'nk':'ŋk',
@@ -46,7 +46,7 @@ cz_palatal_dict = {'d':'ɟ',
 #Designate IPA characters as respective sound types 
 #(vowels, consonants, obstruents, voiceless sounds, etc.)
 cz_obstruents = ['b', 'c', 'd', 'f', 'ɡ', 'k', 'p', 's', 't', 'v', 'x', 'z',
-                 'ɟ', 'ɦ', 'ʃ', 'ʒ', 'ʦ', 'ʧ', 'ř', 'ʣ', 'ʤ']
+                 'ɟ', 'ɦ', 'ʃ', 'ʒ', 'ʦ', 'ʧ', 'ř', 'ʣ', 'ʤ', 'ɣ']
 
 cz_consonants = cz_obstruents + ['m', 'n', 'ɲ', 'ŋ', 'r', 'l', 'j']
 
@@ -68,6 +68,7 @@ cz_devoicing_dict = {'b':'p',
                      }
 
 cz_voicing_dict = {cz_devoicing_dict[phone]:phone for phone in cz_devoicing_dict}
+cz_voicing_dict['x'] = 'ɣ'
 
 cz_voiceless = list(cz_voicing_dict.keys())
 
@@ -305,21 +306,33 @@ def syllabify(text):
 
 def cz_voice_assim(text):
     "Performs forward and backward voicing assimilation of obstruents"
-    
+
     tr = []
     
-    #Forward voicing assimilation
-    #Iterate through characters in the text
-    for i in range(len(text)):
+    #Backward voicing assimilation (from following to preceding consonant)
+    #Iterate backwards through characters in the text
+    for i in range(len(text)-1,-1,-1):
+    
         ch = text[i]
         
         #Perform voicing assimilation if the character is an obstruent
         #(and if the following character is also an obstruent)
         if ch in cz_obstruents:
             
-            #Check for a following character
+            #Check for a following character, which will be the first character 
+            #of the transcribed list constructed in reverse order
             try:
-                nxt = text[i+1]
+                nxt = tr[0]
+                
+                #Exception to regressive voicing assimilation is sequence <sh>
+                #Underlyingly /sɦ/, but pronounced /sx/ rather than /zɦ/ (Bohemia, not Moravia)
+                #Note: some words do use /zɦ/, e.g. <shora>, <shluk> but this detail is ignored here
+                #No need to mark the case where /ɦ/ has been devoiced to /x/ word-finally
+                #as no voicing assimilation will occur in that case
+                if (ch, nxt) == ('s', 'ɦ'):
+                    tr[0] = 'x'
+                    tr.insert(0, ch)
+                    continue
                 
                 #Check if the following character is an obstruent
                 if nxt in cz_obstruents:
@@ -333,25 +346,25 @@ def cz_voice_assim(text):
                         #Devoice or voice the present segment according to 
                         #the voicing of the following segment
                         if voice == False:
-                            tr.append(cz_devoicing_dict.get(ch, ch))
+                            tr.insert(0, cz_devoicing_dict.get(ch, ch))
                         else:
-                            tr.append(cz_voicing_dict.get(ch, ch))
+                            tr.insert(0, cz_voicing_dict.get(ch, ch))
                     
                     #Change nothing if the following consonant was one of <v, ř> /v, r̝/
                     else:
-                        tr.append(ch)
+                        tr.insert(0, ch)
                 else:
-                    tr.append(ch)
+                    tr.insert(0, ch)
                     
             #Do not change anything if it is the final character of the text
             except IndexError:
-                tr.append(ch)
+                tr.insert(0, ch)
         
         #Otherwise change nothing
         else:
-            tr.append(ch)
-            
-    #Backward voicing assimilation: only affects <ř>
+            tr.insert(0, ch)
+ 
+    #Forward voicing assimilation: only affects <ř> (from preceding to following consonant)
     new_tr = [tr[0]]
     for i in range(1, len(tr)):
         ch = tr[i]
