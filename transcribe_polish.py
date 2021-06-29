@@ -65,15 +65,18 @@ voicing_dict = {'ɕ':'ʑ',
 
 #Mapping of consonants to their palatalized counterparts
 palatal_dict = {'b':'bʲ',
+                'd':'dʲ',
                 'ʣ':'ʥ',
                 'f':'fʲ',
                 'ɡ':'ɡʲ',
                 'k':'kʲ',
+                'l':'lʲ',
                 'm':'mʲ',
                 'n':'ɲ',
                 'p':'pʲ',
                 'ɾ':'ɾʲ',
                 's':'ɕ',
+                't':'tʲ',
                 'ʦ':'ʨ',
                 'v':'vʲ',
                 'x':'xʲ',
@@ -93,6 +96,8 @@ pl_obstruents = ['b', 'ɕ', 'd', 'ʣ', 'ʥ', 'f', 'ɡ', 'k',
                  'z', 'ʑ', 'ʐ']
 
 pl_plosives = ['b', 'd', 'ɡ', 'k', 'p', 't']
+
+pl_fricatives = ['ɕ', 'f', 's', 'ʂ', 'v', 'x', 'z', 'ʑ', 'ʐ']
 
 pl_affricates = ['ʣ', 'ʥ', 'd͡ʐ', 'ʦ', 'ʨ', 't͡ʂ']
 
@@ -175,9 +180,12 @@ def pl_palatalization(text):
                     try:
                         nxtnxt = text[i+2]
                         
-                        #If the character afer <i> is another vowel, skip 2
-                        #indices ahead in order to not transcribe <i>
+                        #If the character afer <i> is another vowel, 
+                        #transcribe /j/ if the preceding unpalatalized consonant was not one of /n, s, ʦ, ʣ/
+                        #then skip 2 indices ahead in order to not transcribe <i>
                         if nxtnxt in pl_vowels:
+                            if ch not in ['ʦ', 'ʣ', 's', 'z', 'n']:
+                                tr.append('j')
                             i += 2
                         
                         #Otherwise move only 1 index ahead in order to transcribe <i>
@@ -436,7 +444,26 @@ def fix_rz(text):
             tr += ch
     return tr
 
-            
+
+def nasal_lenition(text):
+    """Performs lenition on /ɲ/, which becomes /j̃/ when preceding fricatives"""
+    tr = text[0]
+    if len(text) > 1:
+        for i in range(1, len(text)):
+            ch = text[i]
+            if ch == 'ɲ':
+                try:
+                    nxt = text[i+1]
+                    if nxt in pl_fricatives:
+                        tr += 'j̃'
+                    else:
+                        tr += ch
+                except IndexError:
+                    tr += ch
+            else:
+                tr += ch
+    return tr
+
 
 def add_dental(text):
     """Adds dental diacritics to relevant consonants"""
@@ -529,13 +556,16 @@ def transcribe_pl(text, final_denasal=False, stress=True):
     #Change representation of <rz> from temporary /ř/ to /ʐ/
     step7 = fix_rz(step6)
     
+    #Perform nasal lenition
+    step8 = nasal_lenition(step7)
+    
     #Add dental diacritics
-    step8 = add_dental(step7)
+    step9 = add_dental(step8)
     
     #Optionally add stress marking
     if stress == True:
-        step9 = add_stress(step8)
-        return step9
+        step10 = add_stress(step9)
+        return step10
     else:
-        return step8
+        return step9
 
