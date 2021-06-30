@@ -416,6 +416,12 @@ def pl_finaldevoicing(text):
         while i < len(word):
             ch = word[i]
             
+            #Check whether this final consonant was /d͡ʐ/, 
+            #in which case the plosive component (/d/) also needs to be devoiced
+            if len(word) > 1:
+                if word[i-1:i+1] == '͡ʐ':
+                    w[-2] = devoicing_dict.get(word[i-2], word[i-2])
+            
             #If the current character is at the index of the final consonant,
             #devoice the current character (if possible)
             if i == j:
