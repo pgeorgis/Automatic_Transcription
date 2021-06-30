@@ -123,32 +123,10 @@ def uk_palatalization(text):
         #If there is no next character, don't change anything
         except IndexError:
             new_tr.append(ch)
-        
-    #Then change intervocalic /ʲ/ to /j/
-    tr = new_tr
-    for i in range(1, len(tr)):
-        ch = tr[i]
-        if ch == 'ʲ':
-            try:
-                prev_ch = tr[i-1]
-                nxt_ch = tr[i+1]
-                
-                #If the /ʲ/ appears between two vowels, change it to /j/
-                if ((prev_ch in uk_vowels) and (nxt_ch in uk_vowels)):
-                    tr[i] = 'j'
-                
-                #Or if the /ʲ/ appears after an apostrophe (marking non-palatalization of preceding consonant),
-                #change to /j/
-                elif prev_ch in apostrophes:
-                    tr[i] = 'j'
-                
-            #No need to change anything if it is the final character of a word
-            except IndexError:
-                pass
-    tr = ''.join(tr)
                 
     #Change /ʲi/ at beginning of words <і> to /i/
     #Change other /ʲ/ at beginning of words to /j/
+    tr = ''.join(new_tr)
     words = tr.split()
     final_tr = []
     for word in words:
@@ -278,6 +256,31 @@ def uk_vowel_reduction(text):
     return text
 
 
+def adjust_soft_vowels(text):
+    """Changes intervocalic /ʲ/ to /j/"""
+    
+    tr = list(text)
+    for i in range(1, len(tr)):
+        ch = tr[i]
+        if ch == 'ʲ':
+            try:
+                prev_ch = tr[i-1]
+                nxt_ch = tr[i+1]
+                
+                #If the /ʲ/ appears between two vowels, change it to /j/
+                if ((prev_ch in uk_vowels) and (nxt_ch in uk_vowels)):
+                    tr[i] = 'j'
+                
+                #Or if the /ʲ/ appears after an apostrophe (marking non-palatalization of preceding consonant),
+                #change to /j/
+                elif prev_ch in apostrophes:
+                    tr[i] = 'j'
+                
+            #No need to change anything if it is the final character of a word
+            except IndexError:
+                pass
+    tr = ''.join(tr)
+    return tr
 
 
 def remove_apostrophe(text):
@@ -298,11 +301,14 @@ def transcribe_uk(text):
     
     #Perform vowel reduction
     step4 = uk_vowel_reduction(step3)
+    
+    #Adjust representation of palatalizing vowels
+    step5 = adjust_soft_vowels(step4)
 
     #Remove non-palatalizing apostrophes
-    step5 = remove_apostrophe(step4)
+    step6 = remove_apostrophe(step5)
     
-    return step5
+    return step6
 
 
 
