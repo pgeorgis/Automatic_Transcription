@@ -32,10 +32,10 @@ In Ukrainian, stress must be marked orthographically with an accute accent in or
 
 >> transcribe_uk(uk_no_stress)
 
-'pʲiʋnʲiʧnɪi̯ ʋʲitɛr duu̯ z usʲijɛji sɪɫɪ ɑɫɛ ʧɪm duʒʧɛ ʋʲin duu̯ tɪm ʃʧɪɫʲnʲiʃɛ kutɑʋsʲɑ mɑndɾʲiʋnɪk u swɔjɛ pɑɫʲtɔ'
+'pʲiʋnʲiʧnɪi̯ ʋʲitɛr duu̯ z usʲijɛji sɪɫɪ ɑɫɛ ʧɪm duʒʧɛ ʋʲin duu̯ tɪm ʃʧɪlʲnʲiʃɛ kutɑʋsʲɑ mɑndɾʲiʋnɪk u swɔjɛ pɑlʲtɔ'
 
 >> uk_with_stress = "Півні́чний ві́тер дув з усіє́ї си́ли, а́ле чим ду́жче він дув, тим щильні́ше ку́тався мандрівни́к у своє́ пальто́."
 
 >> transcribe_uk(uk_with_stress)
 
-'pʲiʋnʲˈiʧnɪi̯ ʋʲˈitɛr duu̯ z ʊsʲijˈɛji sˈɪɫɪ ˈɑɫɛ ʧɪm dˈuʒʧɛ ʋʲin duu̯ tɪm ʃʧɪɫʲnʲˈiʃɛ kˈutɐʋsʲɐ mɐndɾʲiʋnˈɪk u swɔjˈɛ pɐɫʲtˈɔ'
+'pʲiʋnʲˈiʧnɪi̯ ʋʲˈitɛr duu̯ z ʊsʲijˈɛji sˈɪɫɪ ˈɑɫɛ ʧɪm dˈuʒʧɛ ʋʲin duu̯ tɪm ʃʧɪlʲnʲˈiʃɛ kˈutɐʋsʲɐ mɐndɾʲiʋnˈɪk u swɔjˈɛ pɐlʲtˈɔ'
