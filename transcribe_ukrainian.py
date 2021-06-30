@@ -88,7 +88,7 @@ def uk_palatalization(text):
     #Change from dark /ɫ/ to light /l/
     tr = re.sub('ɫʲ', 'lʲ', text)
     #Change from trill to tap when palatalized
-    tr = re.sub('rʲ', 'ɾʲ', text)
+    tr = re.sub('rʲ', 'ɾʲ', tr)
     
     #Ensure that sequences of two identical consonants, the latter of which is palatalized, 
     #are both palatalized
