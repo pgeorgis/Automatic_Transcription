@@ -403,7 +403,8 @@ def pl_finaldevoicing(text):
     
     #Iterate through words in the text
     text = text.split()
-    for word in text:
+    for k in range(len(text)):
+        word = text[k]
         w = []
         
         #Iterate backwards from the end of the word, to locate the final consonant
@@ -416,16 +417,35 @@ def pl_finaldevoicing(text):
         while i < len(word):
             ch = word[i]
             
-            #Check whether this final consonant was /d͡ʐ/, 
-            #in which case the plosive component (/d/) also needs to be devoiced
-            if len(word) > 1:
-                if word[i-1:i+1] == '͡ʐ':
-                    w[-2] = devoicing_dict.get(word[i-2], word[i-2])
-            
             #If the current character is at the index of the final consonant,
             #devoice the current character (if possible)
             if i == j:
                 w.append(devoicing_dict.get(ch, ch))
+                
+                #Check whether this final consonant was /d͡ʐ/, 
+                #in which case the plosive component (/d/) also needs to be devoiced
+                if len(word) > 1:
+                    if word[i-1:i+1] == '͡ʐ':
+                        w[-3] = devoicing_dict.get(word[i-2], word[i-2])
+                
+                #If the word was one of <w, z>, assimilate voicing to next word's onset
+                if word in ['v', 'z']:
+                    try:
+                        nxt_word = text[k+1]
+                        nxt_word_onset = nxt_word[0]
+                        
+                        #Re-voice the devoiced /v, z/ if the next word begins with a voiced sound
+                        if nxt_word_onset not in pl_voiceless:
+                            w[-1] = voicing_dict.get(w[-1], w[-1])
+                        
+                        #Otherwise, leave it voiceless
+                        else:
+                            pass
+                    
+                    #If there is no next word, then revoice to give <w, z> in their voiced citation form
+                    except IndexError:
+                        w[-1] = voicing_dict.get(w[-1], w[-1])
+                
                 
             #Otherwise change nothing
             else:
@@ -536,7 +556,7 @@ def add_stress(text):
     
 
     
-def transcribe_pl(text, final_denasal=False, stress=True):
+def transcribe_pl(text, final_denasal=True, stress=True):
     """If final_denasal == True, word-final <ę> is not transcribed as nasalized [depends on register];
     e.g. <jagnię> [jˈaɡɲɛw̃] vs. [jˈaɡɲɛ]
     If stress == True, stress annotation is included"""
