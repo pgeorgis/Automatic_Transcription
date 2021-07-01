@@ -6,6 +6,7 @@ Supported G2P languages:
 - Classical Nāhuatl
 - Czech
 - Polish
+- Slovak
 - Ukrainian
 
 Script conversion:
