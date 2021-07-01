@@ -74,6 +74,7 @@ def uk2ipa(text):
     
     #Convert two-character sequences first
     tr = re.sub('дз', 'ʣ', text)
+    tr = re.sub('дж', 'ʤ', text)
     
     #Then convert other single characters
     tr = ''.join([uk_ipa_dict.get(ch, ch) for ch in tr])
