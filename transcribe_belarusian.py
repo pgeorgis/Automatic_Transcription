@@ -57,7 +57,16 @@ be_devoicing_dict = {'b':'p',
                      'ʁ':'ʁ̥',
                      'd':'t',
                      'ʐ':'ʂ',
-                     'z':'s'}
+                     'z':'s',
+                     'ʣ':'ʦ',
+                     'ʤ':'ʧ'}
+
+#Dictionary of voiceless obstruents with their voiced counterparts
+be_voicing_dict = {be_devoicing_dict[voiced]:voiced for voiced in be_devoicing_dict}
+
+
+#List of Belarusian obstruents
+be_obstruents = list(be_devoicing_dict.keys()) + list(be_voicing_dict.keys()) + ['k']
 
 
 def be2ipa(text):
@@ -70,6 +79,7 @@ def be2ipa(text):
     
     #Convert two-character sequences first
     tr = re.sub('дз', 'ʣ', text)
+    tr = re.sub('дж', 'ʤ', tr)
     
     #Then convert other single characters
     tr = ''.join([be_ipa_dict.get(ch, ch) for ch in tr])
@@ -260,7 +270,63 @@ def be_final_devoicing(text):
         words[w] = ''.join(phones)
     
     return ' '.join(words)
+
+
+def be_obstruent_assimilation(text):
+    """Performs voicing and palatalization assimilation on obstruent sequences"""
+    
+    #Split the text into characters
+    text = list(text)
+    
+    #Iterate backwards through the text
+    for i in range(len(text)-1,-1,-1):
+        ch = text[i]
         
+        #Check whether the current segment is an obstruent
+        if ch in be_obstruents:
+            
+            #Try to find the next segment
+            try:
+                if text[i+1] != 'ʲ':
+                    j = i+1
+                else:
+                    j = i+2
+                nxt = text[j]
+                
+                #Check whether the next segment is an obstruent
+                if nxt in be_obstruents:
+                    
+                    #If so, check whether it is voiced or voiceless
+                    voiced = nxt in be_devoicing_dict.keys()
+                    
+                    #Assimilate voicing of current obstruent to next obstruent's voicing
+                    if voiced == True:
+                        text[i] = be_voicing_dict.get(ch, ch)
+                    else:
+                        text[i] = be_devoicing_dict.get(ch, ch)
+                    
+                    #Then check whether it is palatalized
+                    try:
+                        nxtnxt = text[j+1]
+                        palatalized = nxtnxt == 'ʲ'
+                        
+                        #If the next segment is palatalized but the current segment is not,
+                        #palatalize also the current segment
+                        if palatalized == True:
+                            if j == i+1:
+                                text.insert(j, 'ʲ')
+                        
+                    except IndexError:
+                        pass
+            
+                    
+            #If there is no following segment, change nothing
+            except IndexError:
+                pass
+    
+    return ''.join(text)
+    
+
 
 def transcribe_be(text):
     #Convert Belarusian Cyrillic into preliminary IPA
@@ -281,7 +347,10 @@ def transcribe_be(text):
     #Perform final obstruent devoicing
     step6 = be_final_devoicing(step5)
     
-    return step6
+    #Perform obstruent voicing/palatalization assimilation
+    step7 = be_obstruent_assimilation(step6)
+    
+    return step7
 
 
 
