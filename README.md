@@ -15,11 +15,11 @@ Script conversion:
 
 Examples of G2P functionality:
 e.g. Given a Polish orthographic input text: 
->> text = "Cześć, nazywam się Filip. Przepraszam, nie mówię dobrze po polsku."
+>> text = "Cześć, nazywam się Filip. Przepraszam, nie mówię dobrze po polsku, ale chciałbym się nauczyć."
 
 >> transcribe_pl(text, final_denasal=True)
 
-'t͡ʂɛɕʨ, naz̪ˈɨvam ɕɛ fʲˈilʲip. pʂɛpɾˈaʂam, ɲɛ mˈuvʲjɛ dˈɔbʐɛ pɔ pˈɔls̪ku.'
+'t͡ʂɛɕʨ, naz̪ˈɨvam ɕɛ fʲˈilʲip. pʂɛpɾˈaʂam, ɲɛ mˈuvʲjɛ dˈɔbʐɛ pɔ pˈɔls̪ku, ˈalɛ xʨˈawbɨm ɕɛ naˈut͡ʂɨʨ.'
 
 The text can be of any length, for example using a paragraph from the Nāhuatl Wikipedia:
 
