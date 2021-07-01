@@ -3,6 +3,7 @@ Automatic G2P (Grapheme-to-Phoneme) transcription and script conversion tools.
 These programs take an orthographic (regular spelling) input in a given language and transcribe it into the International Phonetic Alphabet (IPA). Note that punctuation is preserved in certain, but not all, languages.
 
 Supported G2P languages:
+- Belarusian
 - Classical Nāhuatl
 - Czech
 - Polish
