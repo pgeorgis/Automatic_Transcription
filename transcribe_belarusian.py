@@ -314,7 +314,10 @@ def be_obstruent_assimilation(text):
                         #palatalize also the current segment
                         if palatalized == True:
                             if j == i+1:
-                                text.insert(j, 'ʲ')
+                                
+                                #But never palatalize the "hard" consonants
+                                if ch not in ['ʂ', 'ʐ', 'ʧ', 'ʤ']:
+                                    text.insert(j, 'ʲ')
                         
                     except IndexError:
                         pass
