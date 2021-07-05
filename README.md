@@ -4,6 +4,7 @@ These programs take an orthographic (regular spelling) input in a given language
 
 Supported G2P languages:
 - Belarusian
+- Bulgarian
 - Classical Nāhuatl
 - Czech
 - Polish
