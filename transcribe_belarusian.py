@@ -245,6 +245,10 @@ def adjust_soft_vowels(text):
             except IndexError:
                 pass
     tr = ''.join(tr)
+    
+    #Add stress marking before <ё> /ʲɵ/, which is always stressed
+    tr = re.sub('ʲɵ', 'ʲˈɵ', tr)
+    
     return tr
 
 
