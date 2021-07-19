@@ -269,7 +269,8 @@ def adjust_soft_vowels(text):
                 nxt_ch = tr[i+1]
                 
                 #If the /ʲ/ appears between two vowels, change it to /j/
-                if ((prev_ch in uk_vowels) and (nxt_ch in uk_vowels)):
+                #In case the next vowel is stressed, include the stress marker as a search criterion
+                if ((prev_ch in uk_vowels) and (nxt_ch in uk_vowels+['ˈ'])):
                     tr[i] = 'j'
                 
                 #Or if the /ʲ/ appears after an apostrophe (marking non-palatalization of preceding consonant),
