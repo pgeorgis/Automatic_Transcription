@@ -237,7 +237,8 @@ def adjust_soft_vowels(text):
                 nxt_ch = tr[i+1]
                 
                 #If the /ʲ/ appears between two vowels, change it to /j/
-                if ((prev_ch in be_vowels) and (nxt_ch in be_vowels)):
+                #Include stress mark in search scope, in case next vowel is stressed
+                if ((prev_ch in be_vowels) and (nxt_ch in be_vowels+['ˈ'])):
                     tr[i] = 'j'
                 
                 
