@@ -24,10 +24,10 @@ polish_ipa = {'ą':'ɔ̃',
 
 #IPA transcriptions for digraphs or certain two-character sequences
 polish_digraphs = {'ch':'x',
-                   'cz':'t͡ʂ',
+                   'cz':'ʈ͡ʂ',
                    'dz':'ʣ',
                    'dź':'ʥ',
-                   'dż':'d͡ʐ',
+                   'dż':'ɖ͡ʐ',
                    'ng':'ŋɡ',
                    'nk':'ŋk',
                    'rz':'ř', 
@@ -41,7 +41,7 @@ devoicing_dict = {'b':'p',
                   'd':'t',
                   'ʥ':'ʨ',
                   'ʣ':'ʦ',
-                  'd͡ʐ':'t͡ʂ',
+                  'ɖ͡ʐ':'ʈ͡ʂ',
                   'g':'k',
                   'ɡ':'k',
                   'ř':'ʂ',
@@ -61,7 +61,7 @@ voicing_dict = {'ɕ':'ʑ',
                 't':'d',
                 'ʦ':'ʣ',
                 'ʨ':'ʥ',
-                't͡ʂ':'d͡ʐ'} 
+                'ʈ͡ʂ':'ɖ͡ʐ'} 
 
 #Mapping of consonants to their palatalized counterparts
 palatal_dict = {'b':'bʲ',
