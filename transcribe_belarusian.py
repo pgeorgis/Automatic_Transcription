@@ -25,7 +25,7 @@ be_ipa_dict = {'а':'a',
                'і':'ʲi',
                'й':'j', 
                'к':'k', 
-               'л':'l', 
+               'л':'ɫ', 
                'м':'m', 
                'н':'n', 
                'о':'o', 
@@ -93,6 +93,10 @@ def be_palatalization(text):
     #Most palatalization other than of <г, р> will already be marked from <ь, е, і, ю, я>
     #The palatalized equivalent of /ʁ/ <г> is /ɣʲ/
     tr = re.sub('ʁʲ', 'ɣʲ', text)
+    
+    #Change dark /ɫ/ to light /l/ when palatalized
+    tr = re.sub('ɫʲ', 'lʲ', tr)
+    
     #No palatalization of <р> /r/ in Belarusian, unlike Russian and Ukrainian
     tr = re.sub('rʲ', 'r', tr)
     
@@ -136,7 +140,12 @@ def be_palatalization(text):
     final_tr = []
     for word in words:
         if word[0] == 'ʲ':
-            final_tr.append('j'+word[1:])
+            
+            #Except if it is initial /ʲi/, then change to just /i/
+            if word[1] == 'i':
+                final_tr.append(word[1:])
+            else:
+                final_tr.append('j'+word[1:])
         else:
             final_tr.append(word)
     
@@ -301,14 +310,17 @@ def be_obstruent_assimilation(text):
                 #Check whether the next segment is an obstruent
                 if nxt in be_obstruents:
                     
-                    #If so, check whether it is voiced or voiceless
-                    voiced = nxt in be_devoicing_dict.keys()
+                    #/v/ does not trigger voice assimilation
+                    if nxt != 'v':
                     
-                    #Assimilate voicing of current obstruent to next obstruent's voicing
-                    if voiced == True:
-                        text[i] = be_voicing_dict.get(ch, ch)
-                    else:
-                        text[i] = be_devoicing_dict.get(ch, ch)
+                        #If so, check whether it is voiced or voiceless
+                        voiced = nxt in be_devoicing_dict.keys()
+                        
+                        #Assimilate voicing of current obstruent to next obstruent's voicing
+                        if voiced == True:
+                            text[i] = be_voicing_dict.get(ch, ch)
+                        else:
+                            text[i] = be_devoicing_dict.get(ch, ch)
                     
                     #Then check whether it is palatalized
                     try:
