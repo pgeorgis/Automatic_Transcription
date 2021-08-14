@@ -7,6 +7,7 @@ Supported G2P languages:
 - Bulgarian
 - Classical Nāhuatl
 - Czech
+- Modern Greek
 - Polish
 - Slovak
 - Ukrainian
