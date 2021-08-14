@@ -247,7 +247,7 @@ def gemination_reduction(text):
         reduced_text = [text[0]]
         for i in range(1, len(text)):
             ch = text[i]
-            if ch in greek_phones:
+            if ch in gr_consonants:
                 prev_ch = text[i-1]
                 if ch != prev_ch:
                     reduced_text.append(ch)
@@ -277,7 +277,9 @@ def word_boundary_voicing(text):
     for i in range(len(words)-1, 0, -1):
         word = words[i]
         prev_word = words[i-1]
-        if prev_word in ['tin', 'ton', 'aftˈin', 'aftˈon',
+        if prev_word in ['tin', 'ton', 
+                         'stin', 'ston',
+                         'aftˈin', 'aftˈon',
                          'ðen', 'min']:
             if word[0] in gr_voicing_dict:
                 word = list(word)
