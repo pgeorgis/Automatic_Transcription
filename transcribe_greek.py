@@ -223,9 +223,9 @@ def voicing_assimilation(text):
                 else:
                     text[i] = 'v'
             
-            #If word final, convert it to /v/
+            #If word final, convert it to /f/
             except IndexError:
-                text[i] = 'v'
+                text[i] = 'f'
 
         
         #Voice /s/ to /z/ when followed by a voiced consonant
