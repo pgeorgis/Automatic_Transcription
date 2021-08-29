@@ -400,43 +400,50 @@ def add_stress(text):
     
     #Iterate through words in text
     for word in text:
-        w = []
         
-        #Search for the first syllabic segment, either a vowel or a syllabic,
-        #and add stress diacritic to it
-        i = 0
-        while i < len(word):
-            ch = word[i]
+        #First count how many syllabic units are in the word:
+        #if the word is monosyllabic, don't add stress marking
+        syllabic_units = [ch for ch in word if ch in cz_vowels+['̩']]
+        if len(syllabic_units) <= 1:
+            tr.append(word)
+        else:
+            w = []
             
-            #Check if the character is a vowel
-            #If so, add syllabic diacritic and stop search
-            if ch in cz_vowels:
-                w.append('ˈ')
-                break
-            
-            #Check whether the character is a syllabic consonant
-            elif ch in syllabics:
+            #Search for the first syllabic segment, either a vowel or a syllabic,
+            #and add stress diacritic to it
+            i = 0
+            while i < len(word):
+                ch = word[i]
                 
-                #Add syllabic diacritic if syllabic and stop search
-                if word[i+1] == '̩': #syllabic diacritic
+                #Check if the character is a vowel
+                #If so, add syllabic diacritic and stop search
+                if ch in cz_vowels:
                     w.append('ˈ')
                     break
                 
-                #Do nothing if not syllabic
+                #Check whether the character is a syllabic consonant
+                elif ch in syllabics:
+                    
+                    #Add stress diacritic if syllabic and stop search
+                    if word[i+1] == '̩': #syllabic diacritic
+                        w.append('ˈ')
+                        break
+                    
+                    #Do nothing if not syllabic
+                    else:
+                        w.append(ch)
+                        i += 1
+                
+                #Do nothing if neither a vowel nor a syllabic consonant
                 else:
                     w.append(ch)
                     i += 1
             
-            #Do nothing if neither a vowel nor a syllabic consonant
-            else:
-                w.append(ch)
-                i += 1
-        
-        #Once the first syllabic segment is found, add the remaining characters
-        w.extend(word[i:])
-        
-        #Add transcribed word to list of transcribed words
-        tr.append(''.join(w))
+            #Once the first syllabic segment is found, add the remaining characters
+            w.extend(word[i:])
+            
+            #Add transcribed word to list of transcribed words
+            tr.append(''.join(w))
         
     return ' '.join(tr)
             
