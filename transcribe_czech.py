@@ -389,6 +389,10 @@ def cz_voice_assim(text):
     return ''.join(new_tr)
 
 
+def count_syllables(word, vowels=cz_vowels):
+    """Counts syllables in word"""
+    return len([ch for ch in word if ch in vowels+['̩']]) - word.count('̯')
+
 
 def add_stress(text):
     """Adds stress marking to the first syllabic segment of each word in the text"""
@@ -403,8 +407,8 @@ def add_stress(text):
         
         #First count how many syllabic units are in the word:
         #if the word is monosyllabic, don't add stress marking
-        syllabic_units = [ch for ch in word if ch in cz_vowels+['̩']]
-        if len(syllabic_units) <= 1:
+        syllables = count_syllables(word)
+        if syllables <= 1:
             tr.append(word)
         else:
             w = []
