@@ -1,8 +1,16 @@
-# Automatic_Transcription
+# Automatic Transcription
 Automatic G2P (Grapheme-to-Phoneme) transcription and script conversion tools.
 These programs take an orthographic (regular spelling) input in a given language and transcribe it into the International Phonetic Alphabet (IPA). Note that punctuation is preserved in certain, but not all, languages.
 
-Supported G2P languages:
+## Table of Contents
+* [Supported Languages](#supported-languages)
+* [General Examples](#general-examples)
+* [Ukrainian, Belarusian, Bulgarian](#ukrainian-belarusian-bulgarian)
+* [Spanish](#spanish)
+
+
+# Supported Languages
+G2P languages:
 - Belarusian
 - Bulgarian
 - Classical Nāhuatl
@@ -16,7 +24,7 @@ Supported G2P languages:
 Script conversion:
 - Serbo-Croatian (Serbian) Cyrillic/Latin conversion 
 
-Examples of G2P functionality:
+# General Examples
 e.g. Given a Polish orthographic input text: 
 >> text = "Cześć, nazywam się Filip. Przepraszam, nie mówię dobrze po polsku, ale chciałbym się nauczyć."
 
@@ -32,6 +40,7 @@ The text can be of any length, for example using a paragraph from the Nāhuatl W
 
 'in naːwat͡ɬaʔtoːlli oːpew t͡ɬaʔtoʔkiʔ iːka in kaʃtiɬteːkaʔ iːnwaːllaːlis iːpan in sematok t͡ɬaːlli, iːnaːwak in kaʃtillaːn̥t͡ɬaʔtoːlli iʍki jankʷiːk aːʧkaːw t͡ɬaʔtoːlli iːpan in aːnaːwak; teːl, in europaneːkaʔ, oːt͡ɬatekitiliʔ in naːwat͡ɬaʔtoːlli iːpam̥pa in teoːpiʃkeʔ oːteːpeʍkeʔ in t͡ɬaːkaʔ, kimamaʔ in naːwat͡ɬaʔtoːlli kaːnin t͡ɬein aːʧtopa aʔmo mot͡ɬaʔtoːaː naːwat͡ɬaːʔtoːlli.'
 
+# Ukrainian, Belarusian, Bulgarian
 In Ukrainian, Belarusian, and Bulgarian, stress must be marked orthographically with an accute accent in order for vowel reduction to be rendered:
 >> uk_no_stress = "Північний вітер дув з усієї сили, але чим дужче він дув, тим щильніше кутався мандрівник у своє пальто."
 
@@ -45,6 +54,7 @@ In Ukrainian, Belarusian, and Bulgarian, stress must be marked orthographically 
 
 'pʲiʋnʲˈiʧnɪi̯ ʋʲˈitɛr duu̯ z ʊsʲijˈɛji sˈɪɫɪ ˈɑɫɛ ʧɪm dˈuʒʧɛ ʋʲin duu̯ tɪm ʃʧɪlʲnʲˈiʃɛ kˈutɐʋsʲɐ mɐndɾʲiʋnˈɪk u swɔjˈɛ pɐlʲtˈɔ'
 
+# Spanish
 The Spanish G2P functionality transcribes according to standard Peninsular Spanish by default:
 >> spanish_text = "El sol demostró entonces al viento que la suavidad y el amor de los abrazos son más poderosos que la furia y la fuerza."
 
