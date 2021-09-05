@@ -10,6 +10,7 @@ Supported G2P languages:
 - Modern Greek
 - Polish
 - Slovak
+- Spanish 
 - Ukrainian
 
 Script conversion:
