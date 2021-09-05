@@ -44,3 +44,17 @@ In Ukrainian, Belarusian, and Bulgarian, stress must be marked orthographically 
 >> transcribe_uk(uk_with_stress)
 
 'pʲiʋnʲˈiʧnɪi̯ ʋʲˈitɛr duu̯ z ʊsʲijˈɛji sˈɪɫɪ ˈɑɫɛ ʧɪm dˈuʒʧɛ ʋʲin duu̯ tɪm ʃʧɪlʲnʲˈiʃɛ kˈutɐʋsʲɐ mɐndɾʲiʋnˈɪk u swɔjˈɛ pɐlʲtˈɔ'
+
+The Spanish G2P functionality transcribes according to standard Peninsular Spanish by default:
+>> spanish_text = "El sol demostró entonces al viento que la suavidad y el amor de los abrazos son más poderosos que la furia y la fuerza."
+
+>> transcribe_es(spanish_text)
+
+'el sol demostɾˈo entˈonθes al β̞jˈento ke la swaβ̞ið̞ˈað̞ ʝ el amˈoɾ ð̞e los aβ̞ɾˈaθos son mas poð̞eɾˈosos ke la fˈuɾja i la fwˈeɾθa.'
+
+Latin American Spanish can be yielded by setting "distincion" to False:
+>> transcribe_es(spanish_text, distincion=False)
+
+'el sol demostɾˈo entˈonses al β̞jˈento ke la swaβ̞ið̞ˈað̞ ʝ el amˈoɾ ð̞e los aβ̞ɾˈasos son mas poð̞eɾˈosos ke la fˈuɾja i la fwˈeɾsa.'
+
+Other dialectal features such as lack of yeísmo (neutralization of /ʎ/ and /ʝ/) and ceceo can also be transcribed via the "yeismo" and "ceceo" arguments (defaults: yeismo=True, ceceo=False).
